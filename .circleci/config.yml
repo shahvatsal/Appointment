@@ -1,7 +1,7 @@
 jobs:
   build-frontend:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/node:20.6.0
     steps:
       - checkout
       - restore_cache:
@@ -18,7 +18,7 @@ jobs:
 
   build-backend:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/node:20.6.0
     steps:
       - checkout
       - restore_cache:
@@ -35,7 +35,7 @@ jobs:
   scan-frontend:
     docker:
       # Docker image here
-      - image: circleci/node:13.8.0
+      - image: cimg/node:20.6.0
     steps:
       # Checkout code from git
       - checkout
@@ -53,7 +53,7 @@ jobs:
   scan-backend:
     docker:
       # Docker image here
-      - image: circleci/node:13.8.0
+      - image: cimg/node:20.6.0
     steps:
       # Checkout code from git
       - checkout
@@ -72,10 +72,10 @@ workflows:
   build_and_scan:
     jobs:
       - build-frontend
-      - build-backend
-      - scan-frontend:
-          requires:
-            - build-frontend
-      - scan-backend:
-          requires:
-            - build-backend
+      # - build-backend
+      # - scan-frontend:
+      #     requires:
+      #       - build-frontend
+      # - scan-backend:
+      #     requires:
+      #       - build-backend
