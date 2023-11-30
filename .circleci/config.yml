@@ -50,23 +50,6 @@ jobs:
             npm install
             npm audit fix --audit-level=critical
 
-  scan-backend:
-    docker:
-      # Docker image here
-      - image: cimg/node:20.6.0
-    steps:
-      # Checkout code from git
-      - checkout
-      # Restore from cache
-      - restore_cache:
-          keys: [backend-build]
-      # Your job code here
-      - run:
-          name: Scan Backend
-          command: |
-            cd backend
-            npm install
-            npm audit fix --audit-level=critical
 workflows:
   version: 2
   build_and_scan:
