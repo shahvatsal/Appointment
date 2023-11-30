@@ -1,5 +1,5 @@
 import { Row } from "antd";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import DoctorList from "../components/DoctorList";
 import Layout from "./../components/Layout";
 
@@ -26,9 +26,7 @@ const HomePage = () => {
   //   }
   // };
 
-  useEffect(() => {
-    // getUserData();
-  }, []);
+  
   return (
     <Layout>
       <h3 className="text-center">Home Page</h3>
