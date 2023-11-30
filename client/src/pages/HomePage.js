@@ -1,11 +1,10 @@
 import { Row } from "antd";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DoctorList from "../components/DoctorList";
 import Layout from "./../components/Layout";
 
 const HomePage = () => {
-  const [doctors, setDoctors] = useState([]);
+  const [doctors, _setDoctors] = useState([]);
   // login user data
   // const getUserData = async () => {
   //   try {

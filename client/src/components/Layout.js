@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../styles/LayoutStyles.css";
-import { adminMenu, userMenu } from "./../Data/data";
+import { adminMenu } from "./../Data/data";
 
 const Layout = ({ children }) => {
   const { user } = useSelector((state) => state.user);
