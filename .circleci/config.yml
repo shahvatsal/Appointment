@@ -72,7 +72,7 @@ workflows:
   build_and_scan:
     jobs:
       - build-frontend
-      # - build-backend
+      - build-backend
       # - scan-frontend:
       #     requires:
       #       - build-frontend
