@@ -4,7 +4,8 @@ import DoctorList from "../components/DoctorList";
 import Layout from "./../components/Layout";
 
 const HomePage = () => {
-  const [doctors, _setDoctors] = useState([]);
+  // const [doctors, setDoctors] = useState([]);
+  const doctors = []
   // login user data
   // const getUserData = async () => {
   //   try {
