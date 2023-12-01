@@ -36,8 +36,8 @@ jobs:
     machine:
       image: ubuntu-2004:202010-01
     steps:
-      - attach_workspace:
-          at: .
+      # - attach_workspace:
+      #     at: .
       - checkout
       - run:
           name: Installing AWS CLI
@@ -57,5 +57,5 @@ workflows:
           requires:
             - build-frontend
       - deploy
-          # requires:
-          #   - scan-frontend
+          requires:
+            - scan-frontend
