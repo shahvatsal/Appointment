@@ -53,7 +53,6 @@ workflows:
   build_and_scan_and_deploy:
     jobs:
       - build-frontend
-      - build-backend
       - scan-frontend:
           requires:
             - build-frontend
