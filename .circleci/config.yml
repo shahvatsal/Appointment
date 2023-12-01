@@ -32,7 +32,7 @@ jobs:
             npm install
             npm audit fix --audit-level=critical
 
-  deploy:
+  deploy-frontend:
     machine:
       image: ubuntu-2004:202010-01
     steps:
@@ -56,6 +56,6 @@ workflows:
       - scan-frontend:
           requires:
             - build-frontend
-      - deploy:
+      - deploy-frontend:
           requires:
             - scan-frontend
