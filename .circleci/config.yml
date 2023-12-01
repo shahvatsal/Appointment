@@ -56,6 +56,6 @@ workflows:
       - scan-frontend:
           requires:
             - build-frontend
-      - deploy
+      - deploy:
           requires:
             - scan-frontend
