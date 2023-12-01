@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../styles/LayoutStyles.css";
-import { adminMenu } from "./../Data/data";
+import { adminMenu, userMenu } from "./../Data/data";
 
 const Layout = ({ children }) => {
   const { user } = useSelector((state) => state.user);
@@ -38,17 +38,17 @@ const Layout = ({ children }) => {
   // =========== doctor menu ===============
 
   // rendering menu list
-  // const SidebarMenu = user?.isAdmin
-  //   ? adminMenu.filter((menu) => menu.name !== "Profile")
-  //   : user?.isDoctor
-  //   ? doctorMenu
-  //   : userMenu.filter((menu) => menu.name !== "Profile");
-
   const SidebarMenu = user?.isAdmin
-  ? adminMenu.filter((menu) => menu.name !== "Profile")
-  : user?.isDoctor
-  ? doctorMenu
-  : adminMenu.filter((menu) => menu.name !== "Profile");
+    ? adminMenu.filter((menu) => menu.name !== "Profile")
+    : user?.isDoctor
+    ? doctorMenu
+    : userMenu.filter((menu) => menu.name !== "Profile");
+
+  // const SidebarMenu = user?.isAdmin
+  // ? adminMenu.filter((menu) => menu.name !== "Profile")
+  // : user?.isDoctor
+  // ? doctorMenu
+  // : adminMenu.filter((menu) => menu.name !== "Profile");
 
 
   return (

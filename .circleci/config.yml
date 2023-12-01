@@ -18,22 +18,6 @@ jobs:
           paths: [client/node_modules]
           key: frontend-build
 
-  build-backend:
-    docker:
-      - image: cimg/node:20.6.0
-    steps:
-      - checkout
-      - restore_cache:
-          keys: [backend-build]
-      - run:
-          name: Back-end build
-          command: |
-            npm install
-            npm run build
-      - save_cache:
-          paths: [node_modules]
-          key: backend-build
-
   scan-frontend:
     docker:
       - image: cimg/node:20.6.0
