@@ -145,7 +145,7 @@ workflows:
   version: 2
   build_and_scan:
     jobs:
-      - build-frontend
+      - build-frontend:
       - scan-frontend:
           requires:
             - build-frontend
