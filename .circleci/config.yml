@@ -1,3 +1,5 @@
+version: 2.1
+
 jobs:
   build-frontend:
     docker:
@@ -13,7 +15,7 @@ jobs:
             npm install
             npm run build
       - save_cache:
-          paths: [frontend/node_modules]
+          paths: [client/node_modules]
           key: frontend-build
 
   build-backend:
@@ -29,7 +31,7 @@ jobs:
             npm install
             npm run build
       - save_cache:
-          paths: [backend/node_modules]
+          paths: [node_modules]
           key: backend-build
 
   scan-frontend:
@@ -46,14 +48,26 @@ jobs:
             npm install
             npm audit fix --audit-level=critical
 
- 
+  deploy:
+    docker:
+      - image: cimg/python:3.9
+    steps:
+      - checkout
+      - run: 
+          name: Deploy to AWS
+          command: |
+            # Add AWS CLI deployment commands here
+            # Example for S3:
+            # aws s3 sync ./client/build s3://appointmentsim/
 
 workflows:
   version: 2
-  build_and_scan:
+  build_and_scan_and_deploy:
     jobs:
       - build-frontend
       - scan-frontend:
           requires:
             - build-frontend
-    
+      - deploy:
+          requires:
+            - scan-frontend
