@@ -32,12 +32,19 @@ jobs:
             npm install
             npm audit fix --audit-level=critical
 
+  # New Approval Job
+  hold-for-approval:
+    docker:
+      - image: cimg/node:20.6.0
+    steps:
+      - run:
+          name: "Awaiting Approval"
+          command: echo "Deployment requires manual approval"
+
   deploy-frontend:
     machine:
       image: ubuntu-2004:202010-01
     steps:
-      # - attach_workspace:
-      #     at: .
       - checkout
       - run:
           name: Installing AWS CLI
@@ -56,6 +63,10 @@ workflows:
       - scan-frontend:
           requires:
             - build-frontend
-      - deploy-frontend:
+      - hold-for-approval:  # Approval step before deployment
+          type: approval
           requires:
             - scan-frontend
+      - deploy-frontend:
+          requires:
+            - hold-for-approval
