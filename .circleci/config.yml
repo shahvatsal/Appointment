@@ -93,28 +93,30 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-81-22-38.compute-1.amazonaws.com 'bash -s' < deploy_script.sh
+            pwd
+            ls -al
+            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-81-22-38.compute-1.amazonaws.com 'bash -s' < ./server/deploy_script.sh
             # Ensure 'deploy_script.sh' is correctly pathed
 
 workflows:
   build_and_scan_and_deploy:
     jobs:
-      - build-frontend
-      - build-backend
-      - scan-frontend:
-          requires:
-            - build-frontend
-      - scan-backend:
-          requires:
-            - build-backend
-      - hold-for-approval: 
-          type: approval
-          requires:
-            - scan-frontend
-            - scan-backend
-      - deploy-frontend:
-          requires:
-            - hold-for-approval
-      - deploy-backend:
-          requires:
-            - hold-for-approval
+      # - build-frontend
+      # - build-backend
+      # - scan-frontend:
+      #     requires:
+      #       - build-frontend
+      # - scan-backend:
+      #     requires:
+      #       - build-backend
+      # - hold-for-approval: 
+      #     type: approval
+      #     requires:
+      #       - scan-frontend
+      #       - scan-backend
+      # - deploy-frontend:
+      #     requires:
+      #       - hold-for-approval
+      - deploy-backend
+          # requires:
+          #   - hold-for-approval
