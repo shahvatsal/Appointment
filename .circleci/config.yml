@@ -70,6 +70,17 @@ jobs:
           root: .
           paths:
             - .
+  scan-backend:
+    docker:
+      - image: cimg/node:14.17.0  # Use the same Node version as your backend
+    steps:
+      - checkout
+      - run:
+          name: Scan Backend
+          command: |
+            npm install
+            npm audit fix --audit-level=critical
+
 
   deploy-backend:
     machine:
@@ -98,10 +109,14 @@ workflows:
       - scan-frontend:
           requires:
             - build-frontend
+      - scan-backend:
+          requires:
+            - build-backend
       - hold-for-approval: 
           type: approval
           requires:
             - scan-frontend
+            - scan-backend
             - build-backend
       - deploy-frontend:
           requires:
