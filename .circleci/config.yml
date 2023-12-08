@@ -97,7 +97,7 @@ workflows:
       - scan-frontend:
           requires:
             - build-frontend
-      - hold-for-approval:  # Approval step before deployment
+      - hold-for-approval: 
           type: approval
           requires:
             - scan-frontend
