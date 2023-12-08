@@ -101,22 +101,22 @@ jobs:
 workflows:
   build_and_scan_and_deploy:
     jobs:
-      # - build-frontend
-      # - build-backend
-      # - scan-frontend:
-      #     requires:
-      #       - build-frontend
-      # - scan-backend:
-      #     requires:
-      #       - build-backend
-      # - hold-for-approval: 
-      #     type: approval
-      #     requires:
-      #       - scan-frontend
-      #       - scan-backend
-      # - deploy-frontend:
-      #     requires:
-      #       - hold-for-approval
+      - build-frontend
+      - build-backend
+      - scan-frontend:
+          requires:
+            - build-frontend
+      - scan-backend:
+          requires:
+            - build-backend
+      - hold-for-approval: 
+          type: approval
+          requires:
+            - scan-frontend
+            - scan-backend
+      - deploy-frontend:
+          requires:
+            - hold-for-approval
       - deploy-backend
-          # requires:
-          #   - hold-for-approval
+          requires:
+            - hold-for-approval
