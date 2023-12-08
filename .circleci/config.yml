@@ -112,9 +112,9 @@ workflows:
           requires:
             - scan-frontend
             - scan-backend
-      - deploy-frontend:
+      - deploy-backend:
           requires:
             - hold-for-approval
-      - deploy-backend:
+      - deploy-frontend:
           requires:
             - hold-for-approval
