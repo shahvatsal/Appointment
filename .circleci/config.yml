@@ -80,7 +80,7 @@ jobs:
           at: /tmp/workspace
       - add_ssh_keys:
           fingerprints:
-            - "f4:e3:e0:4e:2d:e1:ce:b1:c0:e0:f5:40:3a:a4:8f:e2"  # Replace with your SSH key's fingerprint
+            - "f4:e3:e0:4e:2d:e1:ce:b1:c0:e0:f5:40:3a:a4:8f:e2" 
       
       - run:
           name: Deploy to EC2
