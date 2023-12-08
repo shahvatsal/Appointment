@@ -32,7 +32,6 @@ jobs:
             npm install
             npm audit fix --audit-level=critical
 
-  # New Approval Job
   hold-for-approval:
     docker:
       - image: cimg/node:20.6.0
@@ -56,6 +55,37 @@ jobs:
           name: Deploying to AWS S3
           command: aws s3 sync ./client/build s3://appointmentsim/
 
+  build-backend:
+    docker:
+      - image: cimg/node:14.17.0  # Adjust as needed
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - run:
+          name: Run Tests
+          command: npm test
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  deploy-backend:
+    machine:
+      enabled: true
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - add_ssh_keys:
+          fingerprints:
+            - "f4:e3:e0:4e:2d:e1:ce:b1:c0:e0:f5:40:3a:a4:8f:e2"  # Replace with your SSH key's fingerprint
+      - run:
+          name: Deploy to EC2
+          command: |
+            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-81-22-38.compute-1.amazonaws.com 'bash -s' < deploy_script.sh
+            # Replace 'your-ec2-instance-ip' with your EC2 instance's IP address
+
 workflows:
   build_and_scan_and_deploy:
     jobs:
@@ -70,3 +100,7 @@ workflows:
       - deploy-frontend:
           requires:
             - hold-for-approval
+      - build-backend
+      - deploy-backend:
+          requires:
+            - build-backend
