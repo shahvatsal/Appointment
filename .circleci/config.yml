@@ -83,7 +83,7 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-81-22-38.compute-1.amazonaws.com 'bash -s' < /server/deploy_script.sh
+            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-81-22-38.compute-1.amazonaws.com 'bash -s' < .client/server/deploy_script.sh
             # Replace 'your-ec2-instance-ip' with your EC2 instance's IP address
 
 workflows:
