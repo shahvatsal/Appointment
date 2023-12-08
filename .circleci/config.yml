@@ -94,6 +94,7 @@ workflows:
   build_and_scan_and_deploy:
     jobs:
       - build-frontend
+      - build-backend
       - scan-frontend:
           requires:
             - build-frontend
@@ -105,10 +106,6 @@ workflows:
       - deploy-frontend:
           requires:
             - hold-for-approval
-            - build-backend
-
       - deploy-backend:
           requires:
-            - build-backend
             - hold-for-approval
-
