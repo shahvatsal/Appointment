@@ -29,7 +29,6 @@ jobs:
           name: Scan Frontend
           command: |
             cd client
-            npm install
             npm audit fix --audit-level=critical
 
   hold-for-approval:
@@ -57,22 +56,22 @@ jobs:
 
   build-backend:
     docker:
-      - image: cimg/node:14.17.0  # Adjust as needed
+      - image: cimg/node:14.17.0
     steps:
       - checkout
       - run:
-          name: Install Dependencies
-          command: npm install
-      - run:
-          name: Run Tests
-          command: npm test
+          name: Install Dependencies and Run Tests
+          command: |
+            npm install
+            npm test
       - persist_to_workspace:
           root: .
           paths:
             - .
+
   scan-backend:
     docker:
-      - image: cimg/node:14.17.0  # Use the same Node version as your backend
+      - image: cimg/node:14.17.0
     steps:
       - checkout
       - run:
@@ -80,7 +79,6 @@ jobs:
           command: |
             npm install
             npm audit fix --audit-level=critical
-
 
   deploy-backend:
     machine:
@@ -92,14 +90,11 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "f4:e3:e0:4e:2d:e1:ce:b1:c0:e0:f5:40:3a:a4:8f:e2" 
-      
       - run:
           name: Deploy to EC2
           command: |
-            pwd
-            ls -al
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-81-22-38.compute-1.amazonaws.com 'bash -s' < /home/circleci/project/client/server/deploy_script.sh
-            # Replace 'your-ec2-instance-ip' with your EC2 instance's IP address
+            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-81-22-38.compute-1.amazonaws.com 'bash -s' < deploy_script.sh
+            # Ensure 'deploy_script.sh' is correctly pathed
 
 workflows:
   build_and_scan_and_deploy:
