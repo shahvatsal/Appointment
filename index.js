@@ -24,12 +24,15 @@ app.use("/api/user", userRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/doctor", doctorRoutes);
 
-//static files
-app.use(express.static(path.join(__dirname, "./client/build")));
+app.use("/api/status", (req, res) => res.status(200).send({ status: "ok" }));
 
-app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+
+//static files
+// app.use(express.static(path.join(__dirname, "./client/build")));
+
+// app.get("*", function (req, res) {
+//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
+// });
 
 //port
 const PORT = process.env.PORT || 4001;
