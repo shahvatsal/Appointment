@@ -96,7 +96,22 @@ jobs:
             pwd
             ls -al
             ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-81-22-38.compute-1.amazonaws.com 'bash -s' < ./server/deploy_script.sh
-            # Ensure 'deploy_script.sh' is correctly pathed
+
+  smoke-test:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: Smoke Test Frontend
+          command: |
+            chmod +x ./client/smoke_test_frontend.sh
+            ./client/smoke_test_frontend.sh
+      - run:
+          name: Smoke Test Backend
+          command: |
+            chmod +x ./server/smoke_test_backend.sh
+            ./server/smoke_test_backend.sh
 
 workflows:
   build_and_scan_and_deploy:
@@ -120,8 +135,7 @@ workflows:
       - deploy-backend:
           requires:
             - hold-for-approval
-
-            
-
-
-
+      - smoke-test:
+          requires:
+            - deploy-frontend
+            - deploy-backend
