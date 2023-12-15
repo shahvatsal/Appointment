@@ -138,4 +138,3 @@ workflows:
       - smoke-test:
           requires:
             - deploy-frontend
-            - deploy-backend
