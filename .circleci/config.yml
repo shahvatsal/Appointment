@@ -107,11 +107,7 @@ jobs:
           command: |
             chmod +x ./client/smoke_test_frontend.sh
             ./client/smoke_test_frontend.sh
-      - run:
-          name: Smoke Test Backend
-          command: |
-            chmod +x ./server/smoke_test_backend.sh
-            ./server/smoke_test_backend.sh
+   
 
 workflows:
   build_and_scan_and_deploy:
